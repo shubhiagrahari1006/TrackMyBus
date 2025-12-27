@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAIQCIjm95fD6zRXg7jwatjrgV3TzIebXI",
   authDomain: "trackmybus-b373a.firebaseapp.com",
@@ -9,19 +9,8 @@ const firebaseConfig = {
   appId: "1:78573520148:web:50bddf2b6d737664c02e01"
 };
 
+// Initialize Firebase (ONLY ONCE)
 firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-=======
-const firebaseConfig = {
-  apiKey: "AIzaSyAIQCIjm95fD6zRXg7jwatjrgV3TzIebXI",
-  authDomain: "trackmybus-b373a.firebaseapp.com",
-  databaseURL: "https://trackmybus-b373a-default-rtdb.firebaseio.com",
-  projectId: "trackmybus-b373a",
-  storageBucket: "trackmybus-b373a.appspot.com",
-  messagingSenderId: "78573520148",
-  appId: "1:78573520148:web:50bddf2b6d737664c02e01"
-};
 
-firebase.initializeApp(firebaseConfig);
+// Get database reference
 const database = firebase.database();
->>>>>>> 1b14f220eae89373b3086d4fb1ccb908998987cc
