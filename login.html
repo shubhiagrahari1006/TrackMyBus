@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driver Login</title>
+</head>
+<body>
+  <h2>Driver Login</h2>
+
+  <input id="email" type="email" placeholder="Email" /><br><br>
+  <input id="password" type="password" placeholder="Password" /><br><br>
+
+  <button onclick="login()">Login</button>
+
+  <p id="msg"></p>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="./firebase/firebase-config.js"></script>
+
+  <script src="login.js"></script>
+</body>
+</html>
