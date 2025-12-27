@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,7 +102,7 @@
       </select>
 
       <label>Current Stop</label>
-      <select id="stop">
+      <select id="currentStop">
         <option>Mumbai</option>
         <option>Surat</option>
         <option>Vadodara</option>
@@ -111,103 +110,24 @@
       </select>
 
       <label>Arrival Time</label>
-      <input id="time" type="time" />
+      <input id="arrivalTime" type="time" />
 
       <label>Available Seats</label>
       <input id="seats" type="number" value="35" />
 
-      <button onclick="updateStatus()">Update Current Stop</button>
+      <button onclick="updateBus()">Update Current Stop</button>
       <div class="status" id="status"></div>
     </div>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="./firebase/firebase-config.js"></script>
-  <script src="driver.js"></script>
-</body>
-</html>
-=======
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Driver Panel – TrackMyBus</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 20px;
-    }
-    .card {
-      background: #fff;
-      max-width: 420px;
-      margin: auto;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    h2 { text-align: center; }
-    label { display: block; margin-top: 10px; font-size: 14px; }
-    select, input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 4px;
-    }
-    button {
-      margin-top: 15px;
-      width: 100%;
-      padding: 10px;
-      background: #2b7cff;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 15px;
-      cursor: pointer;
-    }
-    .status {
-      margin-top: 10px;
-      text-align: center;
-      font-size: 13px;
-      color: green;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="card">
-    <h2>🧑‍✈️ Driver Panel</h2>
-
-    <label>Route</label>
-    <select id="route">
-      <option>Mumbai–Delhi</option>
-    </select>
-
-    <label>Current Stop</label>
-    <select id="stop">
-      <option>Mumbai</option>
-      <option>Surat</option>
-      <option>Vadodara</option>
-      <option>Delhi</option>
-    </select>
-
-    <label>Arrival Time</label>
-    <input id="time" placeholder="10:30 AM" />
-
-    <label>Available Seats</label>
-    <input id="seats" type="number" value="35" />
-
-    <button onclick="updateStatus()">Update Current Stop</button>
-
-    <div class="status" id="status"></div>
-  </div>
-
-  <!-- Firebase -->
+  <!-- Firebase SDKs (LOAD ONCE ONLY) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
+  <!-- Firebase config -->
   <script src="./firebase/firebase-config.js"></script>
+
+  <!-- Driver logic -->
   <script src="driver.js"></script>
 </body>
 </html>
->>>>>>> 1b14f220eae89373b3086d4fb1ccb908998987cc
