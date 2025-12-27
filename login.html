@@ -1,23 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Driver Login</title>
+  <meta charset="UTF-8" />
+  <title>Driver Login – TrackMyBus</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .card {
+      width: 350px;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
+      border-radius: 14px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: #38bdf8;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .msg {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 13px;
+      color: #fca5a5;
+    }
+  </style>
 </head>
+
 <body>
-  <h2>Driver Login</h2>
+  <div class="card">
+    <h2>🔐 Driver Login</h2>
 
-  <input id="email" type="email" placeholder="Email" /><br><br>
-  <input id="password" type="password" placeholder="Password" /><br><br>
+    <input id="email" type="email" placeholder="Email" />
+    <input id="password" type="password" placeholder="Password" />
 
-  <button onclick="login()">Login</button>
+    <!-- IMPORTANT: no inline onclick -->
+    <button id="loginBtn" type="button">Login</button>
 
-  <p id="msg"></p>
+    <div class="msg" id="msg"></div>
+  </div>
 
-  <!-- Firebase -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <!-- Firebase config -->
   <script src="./firebase/firebase-config.js"></script>
 
+  <!-- Login logic -->
   <script src="login.js"></script>
 </body>
 </html>
