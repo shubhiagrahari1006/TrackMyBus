@@ -14,3 +14,4 @@ firebase.initializeApp(firebaseConfig);
 
 // Get database reference
 const database = firebase.database();
+const auth = firebase.auth();
