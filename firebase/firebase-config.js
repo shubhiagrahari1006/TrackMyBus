@@ -9,9 +9,9 @@ const firebaseConfig = {
   appId: "1:78573520148:web:50bddf2b6d737664c02e01"
 };
 
-// Initialize Firebase (ONLY ONCE)
+// Initialize Firebase ONLY ONCE
 firebase.initializeApp(firebaseConfig);
 
-// Get database reference
+// Initialize services
 const database = firebase.database();
 const auth = firebase.auth();
