@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +36,7 @@
     }
 
     .card {
-      width: 460px;
+      width: 480px;
       max-width: 92%;
       padding: 28px;
       background: rgba(255, 255, 255, 0.25);
@@ -60,26 +59,10 @@
       font-size: 16px;
     }
 
-    /* Eye‑catching colors */
-    .route {
-      color: #e0f2fe;     /* light blue */
-      font-weight: 600;
-    }
-
-    .stop {
-      color: #86efac;     /* green */
-      font-weight: 700;
-    }
-
-    .time {
-      color: #fde68a;     /* yellow */
-      font-weight: 600;
-    }
-
-    .seats {
-      color: #fca5a5;     /* red */
-      font-weight: 700;
-    }
+    .route { color: #e0f2fe; font-weight: 600; }
+    .stopText { color: #86efac; font-weight: 700; }
+    .time { color: #fde68a; font-weight: 600; }
+    .seats { color: #fca5a5; font-weight: 700; }
 
     .updated {
       margin-top: 16px;
@@ -87,6 +70,24 @@
       color: #d1fae5;
       text-align: right;
       font-style: italic;
+    }
+
+    /* Timeline */
+    .timeline {
+      margin-top: 20px;
+      padding-left: 10px;
+      border-left: 3px solid rgba(255,255,255,0.4);
+    }
+
+    .stop {
+      margin: 10px 0;
+      padding-left: 10px;
+      color: #e5e7eb;
+    }
+
+    .stop.active {
+      color: #38bdf8;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -103,7 +104,7 @@
 
       <div class="info">
         Current Stop:
-        <span class="stop" id="stop">–</span>
+        <span class="stopText" id="stop">–</span>
       </div>
 
       <div class="info">
@@ -116,121 +117,26 @@
         <span class="seats" id="seats">–</span>
       </div>
 
+      <!-- Timeline (IDs required by passenger.js) -->
+      <div class="timeline">
+        <div class="stop" id="Mumbai">Mumbai</div>
+        <div class="stop" id="Surat">Surat</div>
+        <div class="stop" id="Vadodara">Vadodara</div>
+        <div class="stop" id="Delhi">Delhi</div>
+      </div>
+
       <div class="updated" id="lastUpdated">
         Last updated: –
       </div>
     </div>
   </div>
 
-  <!-- Firebase -->
+  <!-- Firebase SDKs (LOAD ONCE) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
+  <!-- Your scripts -->
   <script src="./firebase/firebase-config.js"></script>
   <script src="passenger.js"></script>
 </body>
 </html>
-=======
-<!DOCTYPE html>
-<html>
-<head>
-  <title>TrackMyBus – Passenger View</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 400px;
-      margin: auto;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .info p {
-      margin: 6px 0;
-      font-size: 14px;
-    }
-
-    .timeline {
-      margin-top: 20px;
-      border-left: 3px solid #ccc;
-      padding-left: 15px;
-    }
-
-    .stop {
-      margin-bottom: 15px;
-      position: relative;
-      color: #555;
-    }
-
-    .stop::before {
-      content: "";
-      position: absolute;
-      left: -11px;
-      top: 3px;
-      width: 10px;
-      height: 10px;
-      background: #ccc;
-      border-radius: 50%;
-    }
-
-    .stop.active {
-      font-weight: bold;
-      color: #2b7cff;
-    }
-
-    .stop.active::before {
-      background: #2b7cff;
-    }
-
-    .footer {
-      margin-top: 15px;
-      font-size: 12px;
-      color: #777;
-      text-align: center;
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="card">
-    <h2>🚌 TrackMyBus</h2>
-
-    <div class="info">
-      <p><b>Route:</b> <span id="route"></span></p>
-      <p><b>Arrival Time:</b> <span id="time"></span></p>
-      <p><b>Seats Available:</b> <span id="seats"></span></p>
-    </div>
-
-    <div class="timeline">
-      <div class="stop" id="Mumbai">Mumbai</div>
-      <div class="stop" id="Surat">Surat</div>
-      <div class="stop" id="Vadodara">Vadodara</div>
-      <div class="stop" id="Delhi">Delhi</div>
-    </div>
-
-    <div class="footer" id="lastUpdated"></div>
-  </div>
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-  <script src="./firebase/firebase-config.js"></script>
-  <script src="passenger.js"></script>
-
-</body>
-</html>
->>>>>>> 1b14f220eae89373b3086d4fb1ccb908998987cc
