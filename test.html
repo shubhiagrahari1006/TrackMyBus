@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,3 +33,39 @@
 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Test (No GPS)</title>
+</head>
+<body>
+
+<h2>Firebase Connection Test</h2>
+<pre id="output">Loading...</pre>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script src="./firebase/firebase-config.js"></script>
+
+<script>
+  const output = document.getElementById("output");
+
+  database.ref("bus/bus1").once("value")
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        output.innerText = JSON.stringify(snapshot.val(), null, 2);
+      } else {
+        output.innerText = "No data found";
+      }
+    })
+    .catch(err => {
+      output.innerText = err.message;
+    });
+</script>
+
+</body>
+</html>
+>>>>>>> 1b14f220eae89373b3086d4fb1ccb908998987cc
