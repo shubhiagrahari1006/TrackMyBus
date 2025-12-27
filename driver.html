@@ -101,8 +101,8 @@
       <label>Available Seats</label>
       <input id="seatsInput" type="number" value="35" />
 
-      <!-- IMPORTANT: function name matches JS -->
-      <button onclick="updateBus()">Update Bus</button>
+      <!-- FIX: no inline onclick -->
+      <button id="updateBtn" type="button">Update Bus</button>
 
       <div class="status" id="status"></div>
     </div>
