@@ -1,8 +1,10 @@
+// If already logged in → go to driver panel
 auth.onAuthStateChanged(user => {
-  if (!user) {
-    window.location.href = "login.html";
+  if (user) {
+    window.location.href = "driver.html";
   }
 });
+
 document.getElementById("loginBtn").addEventListener("click", () => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -13,6 +15,5 @@ document.getElementById("loginBtn").addEventListener("click", () => {
     })
     .catch(error => {
       document.getElementById("msg").innerText = error.message;
-      console.error(error);
     });
 });
