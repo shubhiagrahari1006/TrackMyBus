@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TrackMyBus – Passenger</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background image with blur */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("assets/bus.png");
+      background-size: cover;
+      background-position: center;
+      filter: blur(7px);
+      transform: scale(1.08);
+      z-index: 0;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      width: 460px;
+      max-width: 92%;
+      padding: 28px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+      color: #ffffff;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 26px;
+    }
+
+    .info {
+      margin: 12px 0;
+      font-size: 16px;
+    }
+
+    /* Eye‑catching colors */
+    .route {
+      color: #e0f2fe;     /* light blue */
+      font-weight: 600;
+    }
+
+    .stop {
+      color: #86efac;     /* green */
+      font-weight: 700;
+    }
+
+    .time {
+      color: #fde68a;     /* yellow */
+      font-weight: 600;
+    }
+
+    .seats {
+      color: #fca5a5;     /* red */
+      font-weight: 700;
+    }
+
+    .updated {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #d1fae5;
+      text-align: right;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="card">
+      <h2>🚍 TrackMyBus</h2>
+
+      <div class="info">
+        Route:
+        <span class="route" id="route">–</span>
+      </div>
+
+      <div class="info">
+        Current Stop:
+        <span class="stop" id="stop">–</span>
+      </div>
+
+      <div class="info">
+        Arrival Time:
+        <span class="time" id="time">–</span>
+      </div>
+
+      <div class="info">
+        Available Seats:
+        <span class="seats" id="seats">–</span>
+      </div>
+
+      <div class="updated" id="lastUpdated">
+        Last updated: –
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script src="./firebase/firebase-config.js"></script>
+  <script src="passenger.js"></script>
+</body>
+</html>
