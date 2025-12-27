@@ -13,7 +13,6 @@
       overflow: hidden;
     }
 
-    /* Background image with blur */
     body::before {
       content: "";
       position: absolute;
@@ -37,47 +36,37 @@
 
     .card {
       width: 420px;
-      max-width: 90%;
       padding: 26px;
       background: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
       border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
       box-shadow: 0 20px 50px rgba(0,0,0,0.45);
     }
 
-    h2 {
-      text-align: center;
-      color: #fff;
-      margin-bottom: 18px;
-    }
+    h2 { text-align: center; color: #fff; }
 
     label {
       display: block;
       margin-top: 12px;
-      margin-bottom: 4px;
-      color: #f1f1f1;
-      font-size: 14px;
+      color: #fff;
     }
 
-    select, input {
+    input, select {
       width: 100%;
       padding: 10px;
       border-radius: 8px;
       border: none;
-      font-size: 14px;
-      background: rgba(255, 255, 255, 0.85);
+      margin-top: 4px;
     }
 
     button {
-      margin-top: 18px;
       width: 100%;
+      margin-top: 18px;
       padding: 12px;
-      border-radius: 10px;
-      border: none;
       background: #2b7cff;
       color: #fff;
+      border: none;
+      border-radius: 10px;
       font-size: 15px;
       cursor: pointer;
     }
@@ -85,7 +74,6 @@
     .status {
       margin-top: 10px;
       text-align: center;
-      font-size: 13px;
       color: #a7ffb0;
     }
   </style>
@@ -97,12 +85,10 @@
       <h2>🧑‍✈️ Driver Panel</h2>
 
       <label>Route</label>
-      <select id="route">
-        <option>Mumbai – Delhi</option>
-      </select>
+      <input id="routeInput" value="Mumbai – Delhi" />
 
       <label>Current Stop</label>
-      <select id="currentStop">
+      <select id="stopSelect">
         <option>Mumbai</option>
         <option>Surat</option>
         <option>Vadodara</option>
@@ -110,24 +96,23 @@
       </select>
 
       <label>Arrival Time</label>
-      <input id="arrivalTime" type="time" />
+      <input id="timeInput" type="time" />
 
       <label>Available Seats</label>
-      <input id="seats" type="number" value="35" />
+      <input id="seatsInput" type="number" value="35" />
 
-      <button onclick="updateBus()">Update Current Stop</button>
+      <!-- IMPORTANT: function name matches JS -->
+      <button onclick="updateBus()">Update Bus</button>
+
       <div class="status" id="status"></div>
     </div>
   </div>
 
-  <!-- Firebase SDKs (LOAD ONCE ONLY) -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-  <!-- Firebase config -->
   <script src="./firebase/firebase-config.js"></script>
-
-  <!-- Driver logic -->
   <script src="driver.js"></script>
 </body>
 </html>

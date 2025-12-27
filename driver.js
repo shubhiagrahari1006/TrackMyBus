@@ -1,18 +1,23 @@
-function updateStatus() {
-  const route = document.getElementById("route").value;
-  const stop = document.getElementById("stop").value;
-  const time = document.getElementById("time").value;
-  const seats = Number(document.getElementById("seats").value);
+const busRef = database.ref("bus/bus1");
 
-  database.ref("bus/bus1").set({
+function updateBus() {
+  const route = document.getElementById("routeInput").value;
+  const currentStop = document.getElementById("stopSelect").value;
+  const arrivalTime = document.getElementById("timeInput").value;
+  const seats = Number(document.getElementById("seatsInput").value);
+
+  busRef.set({
     route: route,
-    currentStop: stop,
-    arrivalTime: time,
+    currentStop: currentStop,
+    arrivalTime: arrivalTime,
     seats: seats,
-    status: "Arrived",
     lastUpdated: Date.now()
+  }).then(() => {
+    document.getElementById("status").innerText =
+      "✔ Updated successfully";
+  }).catch(err => {
+    document.getElementById("status").innerText =
+      "❌ Error updating data";
+    console.error(err);
   });
-
-  document.getElementById("status").innerText =
-    "✔ Data updated successfully!";
 }
