@@ -1,38 +1,56 @@
+/***********************
+ * Firebase Reference
+ ***********************/
 const busRef = database.ref("bus/bus1");
+let latestBusData = null;
 
-// 🔴 Live listener (auto updates)
+/***********************
+ * LIVE LISTENER
+ ***********************/
 busRef.on("value", snapshot => {
   if (!snapshot.exists()) {
     showOffline("No live data available");
     return;
   }
 
-  updateUI(snapshot.val());
+  latestBusData = snapshot.val();
+  updateUI(latestBusData);
 });
 
-// 🔄 Manual refresh (Where is my train style)
+/***********************
+ * MANUAL REFRESH BUTTON
+ ***********************/
 document.getElementById("refreshBtn").addEventListener("click", () => {
-  document.getElementById("lastUpdated").innerText = "Refreshing latest status...";
-  busRef.once("value")
+  document.getElementById("lastUpdated").innerText =
+    "Refreshing latest status...";
+
+  busRef
+    .once("value")
     .then(snapshot => {
       if (!snapshot.exists()) {
         showOffline("No live data available");
         return;
       }
-      updateUI(snapshot.val(), true);
+
+      latestBusData = snapshot.val();
+      updateUI(latestBusData, true);
     })
     .catch(() => {
-      showOffline("Unable to refresh. Check connection.");
+      showOffline("Unable to refresh. Check internet connection.");
     });
 });
 
+/***********************
+ * UI UPDATE FUNCTION
+ ***********************/
 function updateUI(data, manual = false) {
   document.getElementById("offlineMsg").innerText = "";
 
   document.getElementById("route").innerText = data.route || "-";
   document.getElementById("stop").innerText = data.currentStop || "-";
   document.getElementById("time").innerText = data.arrivalTime || "-";
-  document.getElementById("seats").innerText = data.seats ?? "-";
+  document.getElementById("seats").innerText =
+    data.seats !== undefined ? data.seats : "-";
 
   const badge = document.getElementById("statusBadge");
   badge.className = "badge";
@@ -53,6 +71,7 @@ function updateUI(data, manual = false) {
   if (data.lastUpdated) {
     const diff = Date.now() - data.lastUpdated;
     const mins = Math.floor(diff / 60000);
+
     document.getElementById("lastUpdated").innerText =
       manual || mins === 0
         ? "Last updated: just now"
@@ -60,34 +79,70 @@ function updateUI(data, manual = false) {
   }
 }
 
+/***********************
+ * OFFLINE MESSAGE
+ ***********************/
 function showOffline(msg) {
   document.getElementById("offlineMsg").innerText = msg;
 }
 
-// 🤖 Gemini AI (demo-ready)
+/***********************
+ * 🤖 GEMINI AI (SMART VERSION)
+ ***********************/
 async function askAI() {
-  const q = document.getElementById("aiQuestion").value;
-  if (!q) return;
+  const question = document.getElementById("aiQuestion").value;
+  if (!question) return;
 
   document.getElementById("aiAnswer").innerText = "Thinking...";
 
+  // Context from Firebase (very important for judges)
+  const context = latestBusData
+    ? `
+Bus Route: ${latestBusData.route}
+Current Stop: ${latestBusData.currentStop}
+Arrival Time: ${latestBusData.arrivalTime}
+Available Seats: ${latestBusData.seats}
+Status: ${latestBusData.status}
+`
+    : "Bus data is currently unavailable.";
+
   try {
-    const res = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=YOUR_API_KEY",
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyB11Rxb8-P9y1y1cqIhFarDJa7VKxsBdTY",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: q }] }]
+          contents: [
+            {
+              parts: [
+                {
+                  text: `
+You are a helpful bus tracking assistant.
+Use the following bus information to answer clearly.
+
+${context}
+
+User question: ${question}
+`
+                }
+              ]
+            }
+          ]
         })
       }
     );
 
-    const data = await res.json();
+    const data = await response.json();
+
+    const aiText =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
     document.getElementById("aiAnswer").innerText =
-      data.candidates[0].content.parts[0].text;
-  } catch {
+      aiText || "Sorry, I couldn’t generate a response right now.";
+
+  } catch (error) {
     document.getElementById("aiAnswer").innerText =
-      "AI service unavailable right now.";
+      "AI service unavailable. Please try again later.";
   }
 }
