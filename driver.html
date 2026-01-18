@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Driver Panel – TrackMyBus</title>
+  <title>TrackMyBus – Driver Panel</title>
 
   <style>
     body {
@@ -11,6 +11,7 @@
       font-family: Arial, sans-serif;
       position: relative;
       overflow: hidden;
+      color: #fff;
     }
 
     body::before {
@@ -36,19 +37,24 @@
 
     .card {
       width: 420px;
+      max-width: 95%;
       padding: 26px;
       background: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(18px);
       border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.35);
       box-shadow: 0 20px 50px rgba(0,0,0,0.45);
     }
 
-    h2 { text-align: center; color: #fff; }
+    h2 {
+      text-align: center;
+      margin-bottom: 18px;
+    }
 
     label {
       display: block;
       margin-top: 12px;
-      color: #fff;
+      font-size: 14px;
     }
 
     input, select {
@@ -63,17 +69,18 @@
       width: 100%;
       margin-top: 18px;
       padding: 12px;
+      border-radius: 10px;
+      border: none;
       background: #2b7cff;
       color: #fff;
-      border: none;
-      border-radius: 10px;
       font-size: 15px;
       cursor: pointer;
     }
 
     .status {
-      margin-top: 10px;
+      margin-top: 12px;
       text-align: center;
+      font-size: 14px;
       color: #a7ffb0;
     }
   </style>
@@ -101,20 +108,45 @@
       <label>Available Seats</label>
       <input id="seatsInput" type="number" value="35" />
 
-      <!-- FIX: no inline onclick -->
-      <button id="updateBtn" type="button">Update Bus</button>
+      <label>Status</label>
+      <select id="statusSelect">
+        <option>On Time</option>
+        <option>Delayed</option>
+        <option>Full</option>
+      </select>
 
-      <div class="status" id="status"></div>
+      <button onclick="updateBus()">Update Bus Status</button>
+
+      <div class="status" id="statusMsg"></div>
     </div>
   </div>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
 
   <script src="./firebase/firebase-config.js"></script>
-  <script src="driver.js"></script>
+
+  <script>
+    function updateBus() {
+      const route = document.getElementById("routeInput").value;
+      const stop = document.getElementById("stopSelect").value;
+      const time = document.getElementById("timeInput").value;
+      const seats = Number(document.getElementById("seatsInput").value);
+      const status = document.getElementById("statusSelect").value;
+
+      database.ref("bus/bus1").update({
+        route: route,
+        currentStop: stop,
+        arrivalTime: time,
+        seats: seats,
+        status: status,
+        lastUpdated: Date.now()
+      });
+
+      document.getElementById("statusMsg").innerText =
+        "✅ Bus information updated successfully";
+    }
+  </script>
 </body>
 </html>
