@@ -5,6 +5,11 @@ const busRef = database.ref("bus/bus1");
 let latestBusData = null;
 
 /***********************
+ * Gemini API Key
+ ***********************/
+const GEMINI_API_KEY = "AIzaSyB11Rxb8-P9y1y1cqIhFarDJa7VKxsBdTY";
+
+/***********************
  * LIVE LISTENER
  ***********************/
 busRef.on("value", snapshot => {
@@ -87,7 +92,7 @@ function showOffline(msg) {
 }
 
 /***********************
- * 🤖 GEMINI AI (SMART VERSION)
+ * 🤖 GEMINI AI (WORKING VERSION)
  ***********************/
 async function askAI() {
   const question = document.getElementById("aiQuestion").value;
@@ -95,20 +100,17 @@ async function askAI() {
 
   document.getElementById("aiAnswer").innerText = "Thinking...";
 
-  // Context from Firebase (very important for judges)
   const context = latestBusData
-    ? `
-Bus Route: ${latestBusData.route}
+    ? `Route: ${latestBusData.route}
 Current Stop: ${latestBusData.currentStop}
 Arrival Time: ${latestBusData.arrivalTime}
 Available Seats: ${latestBusData.seats}
-Status: ${latestBusData.status}
-`
+Status: ${latestBusData.status}`
     : "Bus data is currently unavailable.";
 
   try {
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyB11Rxb8-P9y1y1cqIhFarDJa7VKxsBdTY",
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -117,14 +119,12 @@ Status: ${latestBusData.status}
             {
               parts: [
                 {
-                  text: `
-You are a helpful bus tracking assistant.
-Use the following bus information to answer clearly.
+                  text: `You are a helpful bus tracking assistant.
+Use the bus information below to answer clearly.
 
 ${context}
 
-User question: ${question}
-`
+User question: ${question}`
                 }
               ]
             }
@@ -134,15 +134,17 @@ User question: ${question}
     );
 
     const data = await response.json();
+    console.log("Gemini response:", data);
 
-    const aiText =
+    const answer =
       data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
     document.getElementById("aiAnswer").innerText =
-      aiText || "Sorry, I couldn’t generate a response right now.";
+      answer || "AI could not generate a response right now.";
 
   } catch (error) {
+    console.error(error);
     document.getElementById("aiAnswer").innerText =
-      "AI service unavailable. Please try again later.";
+      "AI service unavailable. Please try again.";
   }
 }
